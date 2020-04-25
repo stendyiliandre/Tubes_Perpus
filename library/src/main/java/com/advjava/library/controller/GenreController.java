@@ -18,16 +18,16 @@ import com.advjava.library.repository.GenreRepository;
 @Controller
 @RequestMapping(path="/library")
 public class GenreController {
+	@Autowired
 	private GenreRepository genreRepository;
-
 
 	@PostMapping(path="/Genre/add")
 	public @ResponseBody ResponseEntity<Genre> addNewGenre (@RequestParam String name) {
 		try {
-			Genre GenreData = new Genre();
-			GenreData.setName(name);
-			genreRepository.save(GenreData);
-			return ResponseEntity.ok(GenreData); 
+			Genre genreData = new Genre();
+			genreData.setName(name);
+			genreRepository.save(genreData);
+			return ResponseEntity.ok(genreData); 
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -45,8 +45,8 @@ public class GenreController {
 	@GetMapping(path="/Genre/{id}")
 	public @ResponseBody ResponseEntity<Genre> getGenre(@PathVariable int id) {
 		try {
-			Genre GenreData = genreRepository.findById(id).get();
-			return ResponseEntity.ok(GenreData); 
+			Genre genreData = genreRepository.findById(id).get();
+			return ResponseEntity.ok(genreData); 
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -55,11 +55,11 @@ public class GenreController {
 	@PutMapping(path="/Genre/{id}")
 	public @ResponseBody ResponseEntity<Genre> updateGenre(@RequestParam String name, @PathVariable int id) {
 		try {
-			Genre GenreData = new Genre();
-			GenreData.setId(id);
-			GenreData.setName(name);
-			genreRepository.save(GenreData);
-			return ResponseEntity.ok(GenreData);
+			Genre genreData = new Genre();
+			genreData.setId(id);
+			genreData.setName(name);
+			genreRepository.save(genreData);
+			return ResponseEntity.ok(genreData);
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
