@@ -28,7 +28,6 @@ public class Book {
         fetch = FetchType.LAZY
     )
     private Set<BorrowedBy> borrowedBys;
-//	private Set<BookGenre> bookGenres;
 	
 	public Integer getId() {
 		return id;

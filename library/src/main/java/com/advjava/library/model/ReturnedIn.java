@@ -16,7 +16,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 public class ReturnedIn {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int borrowed_id;
 	private Date date;
 	private int charge;
