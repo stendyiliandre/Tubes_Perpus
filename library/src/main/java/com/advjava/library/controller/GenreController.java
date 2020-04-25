@@ -20,7 +20,7 @@ import com.advjava.library.repository.GenreRepository;
 public class GenreController {
 	private GenreRepository genreRepository;
 
-	@PostMapping(path="/genre/add")
+	@PostMapping(path="/Genre/add")
 	public @ResponseBody ResponseEntity<Genre> addNewGenre (@RequestParam String name) {
 		try {
 			Genre GenreData = new Genre();
