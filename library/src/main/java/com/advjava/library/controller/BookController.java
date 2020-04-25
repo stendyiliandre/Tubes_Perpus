@@ -74,7 +74,7 @@ public class BookController {
 		  bookData.setPublished_year(published_year);
 		  bookData.setStatus(status);
 		  bookRepository.save(bookData);
-		  return ResponseEntity.ok().build();
+		  return ResponseEntity.ok(bookData);
 		}catch (Exception e) {
 		  return ResponseEntity.notFound().build();
 		}

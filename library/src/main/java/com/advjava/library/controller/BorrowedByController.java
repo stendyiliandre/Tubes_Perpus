@@ -81,7 +81,7 @@ public class BorrowedByController {
 	    	borrowedByData.setBook(book);
 	    	borrowedByData.setMember(member);
 	    	borrowedByRepository.save(borrowedByData);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok(borrowedByData);
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}

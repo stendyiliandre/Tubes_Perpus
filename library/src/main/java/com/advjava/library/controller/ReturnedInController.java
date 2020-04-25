@@ -76,7 +76,7 @@ public class ReturnedInController {
 	    	returnedInData.setCharge(charge);
 	    	returnedInData.setCharge_details(charge_details);
 	    	returnedInRepository.save(returnedInData);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok(returnedInData);
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}

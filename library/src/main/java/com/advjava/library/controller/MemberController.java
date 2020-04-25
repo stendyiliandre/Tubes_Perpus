@@ -69,7 +69,7 @@ public class MemberController {
 	    	memberData.setMembership_date(membership_date);
 	    	memberData.setExpired_date(expired_date);
 	        memberRepository.save(memberData);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok(memberData);
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}

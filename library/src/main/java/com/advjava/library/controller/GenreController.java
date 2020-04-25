@@ -67,7 +67,7 @@ public class GenreController {
 		  GenreData.setId(id);
 		  GenreData.setName(name);
 		  genreRepository.save(GenreData);
-		  return ResponseEntity.ok().build();
+		  return ResponseEntity.ok(GenreData);
 		}catch (Exception e) {
 		  return ResponseEntity.notFound().build();
 		}
