@@ -27,14 +27,14 @@ public class MemberController {
 	@PostMapping(path="/Member/add")
 	public @ResponseBody ResponseEntity<Member> addNewMember (@RequestParam String name, @RequestParam Date birth_date, @RequestParam String address, @RequestParam Date membership_date, @RequestParam Date expired_date) {
 	    try {
-	    	Member MemberData = new Member();
-	    	MemberData.setName(name);
-	    	MemberData.setBirth_date(birth_date);
-	    	MemberData.setAddress(address);
-	    	MemberData.setMembership_date(membership_date);
-	    	MemberData.setExpired_date(expired_date);
-	        memberRepository.save(MemberData);
-	        return ResponseEntity.ok(MemberData); 
+	    	Member memberData = new Member();
+	    	memberData.setName(name);
+	    	memberData.setBirth_date(birth_date);
+	    	memberData.setAddress(address);
+	    	memberData.setMembership_date(membership_date);
+	    	memberData.setExpired_date(expired_date);
+	        memberRepository.save(memberData);
+	        return ResponseEntity.ok(memberData); 
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -52,8 +52,8 @@ public class MemberController {
 	@GetMapping(path="/Member/{id}")
 	public @ResponseBody ResponseEntity<Member> getMember(@PathVariable int id) {
 		try {
-			Member MemberData = memberRepository.findById(id).get();
-			return ResponseEntity.ok(MemberData); 
+			Member memberData = memberRepository.findById(id).get();
+			return ResponseEntity.ok(memberData); 
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -62,14 +62,14 @@ public class MemberController {
 	@PutMapping(path="/Member/{id}")
 	public @ResponseBody ResponseEntity<Member> updateMember(@RequestParam String name, @RequestParam Date birth_date, @RequestParam String address, @RequestParam Date membership_date, @RequestParam Date expired_date, @PathVariable int id) {
 		try {
-			Member MemberData = new Member();
-			MemberData.setId(id);
-			MemberData.setName(name);
-	    	MemberData.setBirth_date(birth_date);
-	    	MemberData.setAddress(address);
-	    	MemberData.setMembership_date(membership_date);
-	    	MemberData.setExpired_date(expired_date);
-	        memberRepository.save(MemberData);
+			Member memberData = new Member();
+			memberData.setId(id);
+			memberData.setName(name);
+	    	memberData.setBirth_date(birth_date);
+	    	memberData.setAddress(address);
+	    	memberData.setMembership_date(membership_date);
+	    	memberData.setExpired_date(expired_date);
+	        memberRepository.save(memberData);
 			return ResponseEntity.ok().build();
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();

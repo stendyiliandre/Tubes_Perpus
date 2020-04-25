@@ -1,7 +1,5 @@
 package com.advjava.library.controller;
 
-import java.time.Year;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,20 +23,20 @@ public class BookController {
   private BookRepository bookRepository;
 
   @PostMapping(path="/Book/add") // Map ONLY POST Requests
-  public @ResponseBody ResponseEntity<Book> addNewBook (@RequestParam String name, @RequestParam double price, @RequestParam String author, @RequestParam int age_restriction, @RequestParam Year published_year, @RequestParam String status) {
+  public @ResponseBody ResponseEntity<Book> addNewBook (@RequestParam String name, @RequestParam int price, @RequestParam String author, @RequestParam int age_restriction, @RequestParam int published_year, @RequestParam String status) {
     // @ResponseBody means the returned String is the response, not a view name
  //@RequestParam means it is a parameter from the GET or POST request
 
     try {
-    	Book BookData = new Book();
-    	BookData.setName(name);
-    	BookData.setPrice(price);
-    	BookData.setAuthor(author);
-    	BookData.setAge_restriction(age_restriction);
-    	BookData.setPublished_year(published_year);
-    	BookData.setStatus(status);
-        bookRepository.save(BookData);
-        return ResponseEntity.ok(BookData); 
+    	Book bookData = new Book();
+    	bookData.setName(name);
+    	bookData.setPrice(price);
+    	bookData.setAuthor(author);
+    	bookData.setAge_restriction(age_restriction);
+    	bookData.setPublished_year(published_year);
+    	bookData.setStatus(status);
+        bookRepository.save(bookData);
+        return ResponseEntity.ok(bookData); 
 	}catch (Exception e) {
 		return ResponseEntity.notFound().build();
 	}
@@ -57,25 +55,25 @@ public class BookController {
   @GetMapping(path="/Book/{id}")
   public @ResponseBody ResponseEntity<Book> getBook(@PathVariable int id) {
 	try {
-		Book BookData = bookRepository.findById(id).get();
-		return ResponseEntity.ok(BookData); 
+		Book bookData = bookRepository.findById(id).get();
+		return ResponseEntity.ok(bookData); 
 	}catch (Exception e) {
 		return ResponseEntity.notFound().build();
 	}
   }
   
   @PutMapping(path="/Book/{id}")
-  public @ResponseBody ResponseEntity<Book> updateBook(@RequestParam String name, @RequestParam double price, @RequestParam String author, @RequestParam int age_restriction, @RequestParam Year published_year, @RequestParam String status, @PathVariable int id) {
+  public @ResponseBody ResponseEntity<Book> updateBook(@RequestParam String name, @RequestParam int price, @RequestParam String author, @RequestParam int age_restriction, @RequestParam int published_year, @RequestParam String status, @PathVariable int id) {
 	  try {
-		  Book BookData = new Book();
-		  BookData.setId(id);
-		  BookData.setName(name);
-		  BookData.setPrice(price);
-		  BookData.setAuthor(author);
-		  BookData.setAge_restriction(age_restriction);
-		  BookData.setPublished_year(published_year);
-		  BookData.setStatus(status);
-		  bookRepository.save(BookData);
+		  Book bookData = new Book();
+		  bookData.setId(id);
+		  bookData.setName(name);
+		  bookData.setPrice(price);
+		  bookData.setAuthor(author);
+		  bookData.setAge_restriction(age_restriction);
+		  bookData.setPublished_year(published_year);
+		  bookData.setStatus(status);
+		  bookRepository.save(bookData);
 		  return ResponseEntity.ok().build();
 		}catch (Exception e) {
 		  return ResponseEntity.notFound().build();

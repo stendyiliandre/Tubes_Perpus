@@ -1,11 +1,15 @@
 package com.advjava.library.model;
 
 import java.sql.Date;
-import java.time.Year;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Member {
@@ -17,6 +21,13 @@ public class Member {
 	private String address;
 	private Date membership_date;
 	private Date expired_date;
+	
+	@OneToMany(
+        mappedBy = "member",
+        cascade = CascadeType.PERSIST,
+        fetch = FetchType.LAZY
+    )
+    private Set<BorrowedBy> borrowedBys;
 	
 	public Integer getId() {
 		return id;
@@ -54,4 +65,14 @@ public class Member {
 	public void setExpired_date(Date expired_date) {
 		this.expired_date = expired_date;
 	}
+	public Set<BorrowedBy> getBorrowedBys() {
+		return borrowedBys;
+	}
+	public void setBorrowedBys(Set<BorrowedBy> borrowedBys) {
+		this.borrowedBys = borrowedBys;
+        for (BorrowedBy borrowedBy : borrowedBys) {
+        	borrowedBy.setMember(this);
+        }
+	}
+	
 }

@@ -1,10 +1,14 @@
 package com.advjava.library.model;
 
-import java.time.Year;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Book {
@@ -12,11 +16,18 @@ public class Book {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	private String name;
-	private double price;
+	private int price;
 	private String author;
 	private int age_restriction;
-	private Year published_year;
+	private int published_year;
 	private String status;
+	
+	@OneToMany(
+        mappedBy = "book",
+        cascade = CascadeType.PERSIST,
+        fetch = FetchType.LAZY
+    )
+    private Set<BorrowedBy> borrowedBys;
 	
 	public Integer getId() {
 		return id;
@@ -30,10 +41,10 @@ public class Book {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	public String getAuthor() {
@@ -48,10 +59,10 @@ public class Book {
 	public void setAge_restriction(int age_restriction) {
 		this.age_restriction = age_restriction;
 	}
-	public Year getPublished_year() {
+	public int getPublished_year() {
 		return published_year;
 	}
-	public void setPublished_year(Year published_year) {
+	public void setPublished_year(int published_year) {
 		this.published_year = published_year;
 	}
 	public String getStatus() {
@@ -59,6 +70,15 @@ public class Book {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Set<BorrowedBy> getBorrowedBys() {
+		return borrowedBys;
+	}
+	public void setBorrowedBy(Set<BorrowedBy> borrowedBys) {
+		this.borrowedBys = borrowedBys;
+        for (BorrowedBy borrowedBy : borrowedBys) {
+        	borrowedBy.setBook(this);
+        }
 	}
 	
 }
