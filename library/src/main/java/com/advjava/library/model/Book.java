@@ -28,6 +28,7 @@ public class Book {
         fetch = FetchType.LAZY
     )
     private Set<BorrowedBy> borrowedBys;
+//	private Set<BookGenre> bookGenres;
 	
 	public Integer getId() {
 		return id;
@@ -81,4 +82,13 @@ public class Book {
         }
 	}
 	
+//	public Set<BookGenre> getBookGenres() {
+//		return bookGenres;
+//	}
+//	public void setBookGenre(Set<BookGenre> bookGenres) {
+//		this.bookGenres = bookGenres;
+//        for (BookGenre bookGenre : bookGenres) {
+//        	bookGenre.setBook(this);
+//        }
+//	}
 }
