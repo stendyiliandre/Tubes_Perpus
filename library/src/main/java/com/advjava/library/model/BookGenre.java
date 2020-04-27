@@ -1,48 +1,38 @@
 package com.advjava.library.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.IdClass;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class BookGenre {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
 	
-	@Embeddable
-	public class BookGenrePK implements Serializable {
-	   private int book_id;
-	   private int genre_id;
-	   private static final long serialVersionUID = 1L;
-	}
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 	
-	@EmbeddedId
-	private BookGenrePK bookGenrePK;
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "genre_id", nullable = false)
+    private Genre genre;
 	
-	@MapsId("book_id")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "book_id", referencedColumnName = "id")
-	private Book book;
-
-	@MapsId("genre_id")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "genre_id", referencedColumnName = "id")
-	private Genre genre;
-
-	public BookGenrePK getBookGenrePK() {
-		return bookGenrePK;
+	public Integer getId() {
+		return id;
 	}
 
-//	public void setBookGenrePK(BookGenrePK bookGenrePK) {
-	public void setBookGenrePK(int book_id, int genre_id) {
-		this.bookGenrePK.book_id = book_id;
-		this.bookGenrePK.genre_id = genre_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
+	@JsonManagedReference
 	public Book getBook() {
 		return book;
 	}
@@ -50,7 +40,8 @@ public class BookGenre {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-
+	
+	@JsonManagedReference
 	public Genre getGenre() {
 		return genre;
 	}
@@ -58,6 +49,4 @@ public class BookGenre {
 	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
-
-	
 }

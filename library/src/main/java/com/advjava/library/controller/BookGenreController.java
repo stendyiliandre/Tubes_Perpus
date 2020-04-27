@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.advjava.library.model.Book;
 import com.advjava.library.model.BookGenre;
-import com.advjava.library.model.BookGenre.BookGenrePK;
-import com.advjava.library.model.BorrowedBy;
 import com.advjava.library.model.Genre;
-import com.advjava.library.model.Member;
 import com.advjava.library.repository.BookRepository;
 import com.advjava.library.repository.BookGenreRepository;
 import com.advjava.library.repository.GenreRepository;
@@ -35,13 +32,12 @@ public class BookGenreController {
 	private GenreRepository genreRepository;
 	
 	@PostMapping(path="/BookGenre/add")
-	public @ResponseBody ResponseEntity<BookGenre> addNewBookGenre (@RequestParam int book_id, @RequestParam int genre_id) {
+	public @ResponseBody ResponseEntity<BookGenre> addNewBookGenre (@RequestParam Date borrow_date, @RequestParam Date return_date, @RequestParam int book_id, @RequestParam int genre_id) {
 	    try {
 	    	BookGenre bookGenreData = new BookGenre();
 	    	Book book = bookRepository.findById(book_id).get();
 	    	Genre genre = genreRepository.findById(genre_id).get();
 	    	
-	    	bookGenreData.setBookGenrePK(book_id, genre_id);
 	    	bookGenreData.setBook(book);
 	    	bookGenreData.setGenre(genre);
 	    	bookGenreRepository.save(bookGenreData);
@@ -52,7 +48,7 @@ public class BookGenreController {
 	}
 	
 	@GetMapping(path="/BookGenre")
-	public @ResponseBody ResponseEntity<Iterable<BookGenre>> getAllBookGenres() {
+	public @ResponseBody ResponseEntity<Iterable<BookGenre>> getAllBookGenre() {
 		try {
 			return ResponseEntity.ok(bookGenreRepository.findAll()); 
 		}catch (Exception e) {
@@ -65,6 +61,23 @@ public class BookGenreController {
 		try {
 			BookGenre bookGenreData = bookGenreRepository.findById(id).get();
 			return ResponseEntity.ok(bookGenreData); 
+		}catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@PutMapping(path="/BookGenre/{id}")
+	public @ResponseBody ResponseEntity<BookGenre> updateBookGenre(@RequestParam Date borrow_date, @RequestParam Date return_date, @RequestParam int book_id, @RequestParam int genre_id, @PathVariable int id) {
+		try {
+			BookGenre bookGenreData = new BookGenre();
+	    	Book book = bookRepository.findById(book_id).get();
+	    	Genre genre = genreRepository.findById(genre_id).get();
+	    	
+	    	bookGenreData.setId(id);
+	    	bookGenreData.setBook(book);
+	    	bookGenreData.setGenre(genre);
+	    	bookGenreRepository.save(bookGenreData);
+			return ResponseEntity.ok(bookGenreData);
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
