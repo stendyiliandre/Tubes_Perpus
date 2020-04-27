@@ -22,7 +22,7 @@ public class ReturnedIn {
 	private int charge;
 	private String charge_details;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
     @MapsId
     private BorrowedBy borrowedBy;
 
