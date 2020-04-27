@@ -32,7 +32,7 @@ public class BookGenreController {
 	private GenreRepository genreRepository;
 	
 	@PostMapping(path="/BookGenre/add")
-	public @ResponseBody ResponseEntity<BookGenre> addNewBookGenre (@RequestParam Date borrow_date, @RequestParam Date return_date, @RequestParam int book_id, @RequestParam int genre_id) {
+	public @ResponseBody ResponseEntity<BookGenre> addNewBookGenre (@RequestParam int book_id, @RequestParam int genre_id) {
 	    try {
 	    	BookGenre bookGenreData = new BookGenre();
 	    	Book book = bookRepository.findById(book_id).get();
