@@ -41,6 +41,7 @@ public class BookGenreController {
 	    	Book book = bookRepository.findById(book_id).get();
 	    	Genre genre = genreRepository.findById(genre_id).get();
 	    	
+	    	bookGenreData.setBookGenrePK(book_id, genre_id);
 	    	bookGenreData.setBook(book);
 	    	bookGenreData.setGenre(genre);
 	    	bookGenreRepository.save(bookGenreData);

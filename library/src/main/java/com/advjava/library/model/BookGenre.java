@@ -37,8 +37,10 @@ public class BookGenre {
 		return bookGenrePK;
 	}
 
-	public void setBookGenrePK(BookGenrePK bookGenrePK) {
-		this.bookGenrePK = bookGenrePK;
+//	public void setBookGenrePK(BookGenrePK bookGenrePK) {
+	public void setBookGenrePK(int book_id, int genre_id) {
+		this.bookGenrePK.book_id = book_id;
+		this.bookGenrePK.genre_id = genre_id;
 	}
 
 	public Book getBook() {
@@ -56,7 +58,6 @@ public class BookGenre {
 	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
-	
-	
 
+	
 }

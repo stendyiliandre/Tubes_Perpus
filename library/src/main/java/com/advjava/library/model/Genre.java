@@ -38,14 +38,5 @@ public class Genre {
 		this.name = name;
 	}
 	
-	public Set<BookGenre> getBookGenres() {
-		return bookGenres;
-	}
-	public void setBookGenres(Set<BookGenre> bookGenres) {
-		this.bookGenres = bookGenres;
-        for (BookGenre bookGenre : bookGenres) {
-        	bookGenre.setGenre(this);
-        }
-	}
 	
 }
