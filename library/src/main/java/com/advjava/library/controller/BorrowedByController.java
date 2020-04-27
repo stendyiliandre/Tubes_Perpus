@@ -50,7 +50,7 @@ public class BorrowedByController {
 	}
 	
 	@GetMapping(path="/BorrowedBy")
-	public @ResponseBody ResponseEntity<Iterable<BorrowedBy>> getAllBorrowdBys() {
+	public @ResponseBody ResponseEntity<Iterable<BorrowedBy>> getAllBorrowedBy() {
 		try {
 			return ResponseEntity.ok(borrowedByRepository.findAll()); 
 		}catch (Exception e) {
@@ -59,7 +59,7 @@ public class BorrowedByController {
 	}
 	
 	@GetMapping(path="/BorrowedBy/{id}")
-	public @ResponseBody ResponseEntity<BorrowedBy> getBorrowdBys(@PathVariable int id) {
+	public @ResponseBody ResponseEntity<BorrowedBy> getBorrowedBys(@PathVariable int id) {
 		try {
 			BorrowedBy borrowedByData = borrowedByRepository.findById(id).get();
 			return ResponseEntity.ok(borrowedByData); 

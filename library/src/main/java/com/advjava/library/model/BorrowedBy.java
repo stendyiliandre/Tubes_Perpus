@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class BorrowedBy {
 	@Id
@@ -21,14 +23,14 @@ public class BorrowedBy {
 	private Date borrow_date;
 	private Date return_date;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", referencedColumnName = "id")
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -52,7 +54,8 @@ public class BorrowedBy {
 	public void setReturn_date(Date return_date) {
 		this.return_date = return_date;
 	}
-
+	
+	@JsonManagedReference
 	public Book getBook() {
 		return book;
 	}
@@ -60,7 +63,8 @@ public class BorrowedBy {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-
+	
+	@JsonManagedReference
 	public Member getMember() {
 		return member;
 	}

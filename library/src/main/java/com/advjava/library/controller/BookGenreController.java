@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.advjava.library.model.Book;
 import com.advjava.library.model.BookGenre;
+import com.advjava.library.model.BookGenre.BookGenrePK;
 import com.advjava.library.model.BorrowedBy;
 import com.advjava.library.model.Genre;
 import com.advjava.library.model.Member;
