@@ -71,15 +71,15 @@ public class Book {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Set<BorrowedBy> getBorrowedBys() {
-		return borrowedBys;
-	}
-	public void setBorrowedBy(Set<BorrowedBy> borrowedBys) {
-		this.borrowedBys = borrowedBys;
-        for (BorrowedBy borrowedBy : borrowedBys) {
-        	borrowedBy.setBook(this);
-        }
-	}
+//	public Set<BorrowedBy> getBorrowedBys() {
+//		return borrowedBys;
+//	}
+//	public void setBorrowedBy(Set<BorrowedBy> borrowedBys) {
+//		this.borrowedBys = borrowedBys;
+//        for (BorrowedBy borrowedBy : borrowedBys) {
+//        	borrowedBy.setBook(this);
+//        }
+//	}
 	
 //	public Set<BookGenre> getBookGenres() {
 //		return bookGenres;
