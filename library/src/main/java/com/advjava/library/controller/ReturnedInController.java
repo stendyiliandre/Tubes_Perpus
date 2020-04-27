@@ -55,21 +55,21 @@ public class ReturnedInController {
 		}
 	}
 	
-	@GetMapping(path="/ReturnedIn/{id}")
-	public @ResponseBody ResponseEntity<ReturnedIn> getReturnedIns(@PathVariable int borrowed_id) {
+	@GetMapping(path="/ReturnedIn/{borrowed_by_id}")
+	public @ResponseBody ResponseEntity<ReturnedIn> getReturnedIns(@PathVariable int borrowed_by_id) {
 		try {
-			ReturnedIn returnedInData = returnedInRepository.findById(borrowed_id).get();
+			ReturnedIn returnedInData = returnedInRepository.findById(borrowed_by_id).get();
 			return ResponseEntity.ok(returnedInData); 
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	@PutMapping(path="/ReturnedIn/{id}")
-	public @ResponseBody ResponseEntity<ReturnedIn> updateReturnedIn(@RequestParam Date date, @RequestParam int charge, @RequestParam String charge_details, @PathVariable int borrowed_id) {
+	@PutMapping(path="/ReturnedIn/{borrowed_by_id}")
+	public @ResponseBody ResponseEntity<ReturnedIn> updateReturnedIn(@RequestParam Date date, @RequestParam int charge, @RequestParam String charge_details, @PathVariable int borrowed_by_id) {
 		try {
 			ReturnedIn returnedInData = new ReturnedIn();
-	    	BorrowedBy borrowedBy = borrowedByRepository.findById(borrowed_id).get();
+	    	BorrowedBy borrowedBy = borrowedByRepository.findById(borrowed_by_id).get();
 	    	
 	    	returnedInData.setBorrowedBy(borrowedBy);
 	    	returnedInData.setDate(date);
