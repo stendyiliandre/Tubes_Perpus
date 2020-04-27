@@ -2,13 +2,14 @@ package com.advjava.library.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Book {
@@ -22,11 +23,8 @@ public class Book {
 	private int published_year;
 	private String status;
 	
-	@OneToMany(
-        mappedBy = "book",
-        cascade = CascadeType.PERSIST,
-        fetch = FetchType.LAZY
-    )
+	@OneToMany(targetEntity = BorrowedBy.class, mappedBy = "book", fetch = FetchType.LAZY)
+	@JsonIgnore
     private Set<BorrowedBy> borrowedBys;
 	
 	public Integer getId() {
@@ -74,20 +72,14 @@ public class Book {
 	public Set<BorrowedBy> getBorrowedBys() {
 		return borrowedBys;
 	}
-	public void setBorrowedBy(Set<BorrowedBy> borrowedBys) {
+//	public void setBorrowedBys(Set<BorrowedBy> borrowedBys) {
+//		this.borrowedBys = borrowedBys;
+//	}
+	
+	public void setBorrowedBys(Set<BorrowedBy> borrowedBys) {
 		this.borrowedBys = borrowedBys;
         for (BorrowedBy borrowedBy : borrowedBys) {
         	borrowedBy.setBook(this);
         }
 	}
-	
-//	public Set<BookGenre> getBookGenres() {
-//		return bookGenres;
-//	}
-//	public void setBookGenre(Set<BookGenre> bookGenres) {
-//		this.bookGenres = bookGenres;
-//        for (BookGenre bookGenre : bookGenres) {
-//        	bookGenre.setBook(this);
-//        }
-//	}
 }

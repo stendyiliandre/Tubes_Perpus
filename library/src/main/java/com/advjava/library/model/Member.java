@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Member {
 	@Id
@@ -21,11 +23,8 @@ public class Member {
 	private Date membership_date;
 	private Date expired_date;
 	
-	@OneToMany(
-        mappedBy = "member",
-        cascade = CascadeType.PERSIST,
-        fetch = FetchType.LAZY
-    )
+	@OneToMany(targetEntity = BorrowedBy.class, mappedBy = "member", fetch = FetchType.LAZY)
+	@JsonIgnore
     private Set<BorrowedBy> borrowedBys;
 	
 	public Integer getId() {
@@ -67,11 +66,14 @@ public class Member {
 	public Set<BorrowedBy> getBorrowedBys() {
 		return borrowedBys;
 	}
+//	public void setBorrowedBys(Set<BorrowedBy> borrowedBys) {
+//		this.borrowedBys = borrowedBys;
+//	}
+	
 	public void setBorrowedBys(Set<BorrowedBy> borrowedBys) {
 		this.borrowedBys = borrowedBys;
         for (BorrowedBy borrowedBy : borrowedBys) {
         	borrowedBy.setMember(this);
         }
 	}
-	
 }

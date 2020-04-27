@@ -14,7 +14,7 @@ import javax.persistence.MapsId;
 public class BookGenre {
 	
 	@Embeddable
-	static class BookGenrePK implements Serializable {
+	public class BookGenrePK implements Serializable {
 	   private int book_id;
 	   private int genre_id;
 	   private static final long serialVersionUID = 1L;

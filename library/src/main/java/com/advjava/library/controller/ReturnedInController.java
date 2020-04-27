@@ -30,10 +30,10 @@ public class ReturnedInController {
 	private BorrowedByRepository borrowedByRepository;
 	
 	@PostMapping(path="/ReturnedIn/add")
-	public @ResponseBody ResponseEntity<ReturnedIn> addNewReturnedIn (@RequestParam int borrowed_id, @RequestParam Date date, @RequestParam int charge, @RequestParam String charge_details) {
+	public @ResponseBody ResponseEntity<ReturnedIn> addNewReturnedIn (@RequestParam int borrowed_by_id, @RequestParam Date date, @RequestParam int charge, @RequestParam String charge_details) {
 	    try {
 	    	ReturnedIn returnedInData = new ReturnedIn();
-	    	BorrowedBy borrowedBy = borrowedByRepository.findById(borrowed_id).get();
+	    	BorrowedBy borrowedBy = borrowedByRepository.findById(borrowed_by_id).get();
 	    	
 	    	returnedInData.setBorrowedBy(borrowedBy);
 	    	returnedInData.setDate(date);
