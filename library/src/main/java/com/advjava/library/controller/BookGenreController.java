@@ -67,7 +67,7 @@ public class BookGenreController {
 	}
 	
 	@PutMapping(path="/BookGenre/{id}")
-	public @ResponseBody ResponseEntity<BookGenre> updateBookGenre(@RequestParam Date borrow_date, @RequestParam Date return_date, @RequestParam int book_id, @RequestParam int genre_id, @PathVariable int id) {
+	public @ResponseBody ResponseEntity<BookGenre> updateBookGenre(@RequestParam int book_id, @RequestParam int genre_id, @PathVariable int id) {
 		try {
 			BookGenre bookGenreData = new BookGenre();
 	    	Book book = bookRepository.findById(book_id).get();
