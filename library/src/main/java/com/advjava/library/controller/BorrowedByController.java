@@ -41,14 +41,20 @@ public class BorrowedByController {
 	    	
 	    	LocalDateTime today = java.time.LocalDateTime.now();
 	    	int age = (today.getYear() - member.getBirth_date().getYear() - 1900);
+	    	long difference = ((borrow_date.getTime() - member.getExpired_date().getTime())/86400000) + 1;
 	    	
 	    	if (book.getStatus().equalsIgnoreCase("Borrowed")) {
-	    		borrowedByData.setMessage("Error, book is borrowed");
+	    		borrowedByData.setMessage("Book is borrowed by someone else");
 		    	return ResponseEntity.ok(borrowedByData);
 	    	}
 	    	
 	    	if (age < book.getAge_restriction()) {
 	    		borrowedByData.setMessage("You're not old enough for this book");
+		    	return ResponseEntity.ok(borrowedByData);
+	    	}
+	    	
+	    	if (difference > 0) {
+	    		borrowedByData.setMessage("Membership expired");
 		    	return ResponseEntity.ok(borrowedByData);
 	    	}
 	    	
