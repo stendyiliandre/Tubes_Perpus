@@ -1,6 +1,7 @@
 package com.advjava.library.controller;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,24 @@ public class BorrowedByController {
 	    	Book book = bookRepository.findById(book_id).get();
 	    	Member member = memberRepository.findById(member_id).get();
 	    	
+	    	LocalDateTime today = java.time.LocalDateTime.now();
+	    	int age = (today.getYear() - member.getBirth_date().getYear() - 1900);
+	    	
+	    	if (book.getStatus().equalsIgnoreCase("Borrowed")) {
+	    		borrowedByData.setMessage("Error, book is borrowed");
+		    	return ResponseEntity.ok(borrowedByData);
+	    	}
+	    	
+	    	if (age < book.getAge_restriction()) {
+	    		borrowedByData.setMessage("You're not old enough for this book");
+		    	return ResponseEntity.ok(borrowedByData);
+	    	}
+	    	
+	    	book.setStatus("Borrowed");
+	    	
 	    	borrowedByData.setBorrow_date(borrow_date);
 	    	borrowedByData.setReturn_date(return_date);
+	    	borrowedByData.setMessage("Success");
 	    	borrowedByData.setBook(book);
 	    	borrowedByData.setMember(member);
 	    	borrowedByRepository.save(borrowedByData);

@@ -30,6 +30,8 @@ public class BorrowedBy {
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+	private String message;
 	
 	public Integer getId() {
 		return id;
@@ -72,4 +74,13 @@ public class BorrowedBy {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

@@ -18,6 +18,7 @@ import com.advjava.library.model.Book;
 import com.advjava.library.model.BorrowedBy;
 import com.advjava.library.model.Member;
 import com.advjava.library.model.ReturnedIn;
+import com.advjava.library.repository.BookRepository;
 import com.advjava.library.repository.BorrowedByRepository;
 import com.advjava.library.repository.ReturnedInRepository;
 
@@ -28,18 +29,30 @@ public class ReturnedInController {
 	private ReturnedInRepository returnedInRepository;
 	@Autowired
 	private BorrowedByRepository borrowedByRepository;
+	@Autowired
+	private BookRepository bookRepository;
 	
 	@PostMapping(path="/ReturnedIn/add")
-	public @ResponseBody ResponseEntity<ReturnedIn> addNewReturnedIn (@RequestParam int borrowed_by_id, @RequestParam Date date, @RequestParam int charge, @RequestParam String charge_details) {
+	public @ResponseBody ResponseEntity<ReturnedIn> addNewReturnedIn (@RequestParam int borrowed_by_id, @RequestParam Date date) {
 	    try {
 	    	ReturnedIn returnedInData = new ReturnedIn();
 	    	BorrowedBy borrowedBy = borrowedByRepository.findById(borrowed_by_id).get();
+	    	Book book = bookRepository.findById(borrowedBy.getBook().getId()).get();
+	    	book.setStatus("Available");
+	    	
+	    	long difference = ((date.getTime() - borrowedBy.getReturn_date().getTime())/86400000) + 1;
 	    	
 	    	returnedInData.setBorrowedBy(borrowedBy);
 	    	returnedInData.setDate(date);
-	    	returnedInData.setCharge(charge);
-	    	returnedInData.setCharge_details(charge_details);
+	    	if (difference > 0) {
+		    	returnedInData.setCharge((int)difference*1000);
+		    	returnedInData.setCharge_details("Late");
+	    	} else {
+	    		returnedInData.setCharge(0);
+		    	returnedInData.setCharge_details("On Time");
+	    	}
 	    	returnedInRepository.save(returnedInData);
+	    	bookRepository.save(book);
 	        return ResponseEntity.ok(returnedInData); 
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
@@ -82,10 +95,10 @@ public class ReturnedInController {
 		}
 	}
 	
-	@DeleteMapping(path="/ReturnedIn/{id}")
-	public @ResponseBody ResponseEntity<Void> deleteReturnedIn(@PathVariable int borrowed_id){
+	@DeleteMapping(path="/ReturnedIn/{borrowed_by_id}")
+	public @ResponseBody ResponseEntity<Void> deleteReturnedIn(@PathVariable int borrowed_by_id){
 		try {
-			borrowedByRepository.deleteById(borrowed_id);
+			borrowedByRepository.deleteById(borrowed_by_id);
 			return ResponseEntity.ok().build();
 		}catch (Exception e) {
 			return ResponseEntity.notFound().build();
